@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC5DCF2E21A88B9600A2AA1C /* Enregistrement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5DCF2D21A88B9600A2AA1C /* Enregistrement.swift */; };
 		EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */; };
 		EC6F9A5521A81AE000485FD3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A5421A81AE000485FD3 /* ViewController.swift */; };
 		EC6F9A5821A81AE000485FD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC6F9A5621A81AE000485FD3 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC5DCF2D21A88B9600A2AA1C /* Enregistrement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enregistrement.swift; sourceTree = "<group>"; };
 		EC6F9A4F21A81AE000485FD3 /* AppFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6F9A5421A81AE000485FD3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */,
+				EC5DCF2D21A88B9600A2AA1C /* Enregistrement.swift */,
 				EC6F9A5421A81AE000485FD3 /* ViewController.swift */,
 				EC6F9A5621A81AE000485FD3 /* Main.storyboard */,
 				EC6F9A5921A81AEA00485FD3 /* Assets.xcassets */,
@@ -199,6 +202,7 @@
 			files = (
 				EC6F9A5521A81AE000485FD3 /* ViewController.swift in Sources */,
 				EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */,
+				EC5DCF2E21A88B9600A2AA1C /* Enregistrement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +365,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XYHLT42XGQ;
+				DEVELOPMENT_TEAM = FAD4P47U65;
 				INFOPLIST_FILE = AppFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -379,7 +383,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XYHLT42XGQ;
+				DEVELOPMENT_TEAM = FAD4P47U65;
 				INFOPLIST_FILE = AppFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
