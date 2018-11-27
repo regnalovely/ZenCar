@@ -15,26 +15,35 @@ class HistoryViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         listeStationnement = requeteSQL.getStationnement()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func reload(){
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return listeStationnement.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return listeStationnement.count
+        if(listeStationnement[section].isExpandable){
+            return 4
+        } else {
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+        headerView.delegate = self
+        headerView.secIndex = section
+        headerView.button.setTitle(listeStationnement[section].nomStationnement, for: .normal)
+        return headerView
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,5 +98,11 @@ class HistoryViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
 
+extension HistoryViewController: HeaderDelegate {
+    func cellHeader(index: Int) {
+        listeStationnement[index].isExpandable = !listeStationnement[index].isExpandable
+        tableView.reloadSections([index], with: .automatic)
+    }
 }

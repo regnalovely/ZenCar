@@ -15,6 +15,7 @@ class Stationnement{
     var latitude:Double // Coordonnée du stationnement
     var longitude:Double // Coordonnée du stationnement
     var date:String // Date de l'enregistrement du stationnement
+    var isExpandable:Bool = false // Collapse dans la tableView
     
     init(latitude:Double, longitude:Double){
         // Initialise un nom selon la date de placement du point de stationnement

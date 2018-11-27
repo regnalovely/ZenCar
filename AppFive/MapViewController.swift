@@ -17,6 +17,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var point:CLLocationCoordinate2D = CLLocationCoordinate2D()
     //let requeteHTTP:RequeteHTTP = RequeteHTTP()
     let requeteSQL:RequeteSQL = RequeteSQL()
+    let historyController:HistoryViewController = HistoryViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,19 +52,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         map.addAnnotation(annotation)
     }
     
-    func enregistrerStationnement(stationnement:Stationnement){
-        requeteSQL.enregistrerStationnement(stationnement: stationnement)
-    }
-    
     // MARK: - Button Action
     
     @IBAction func isHere() {
         placerPoint(location: point)
         let stationnement = Stationnement(latitude: point.latitude, longitude: point.longitude)
-        enregistrerStationnement(stationnement: stationnement)
+        requeteSQL.enregistrerStationnement(stationnement: stationnement)
+        historyController.reload()
     }
     
     @IBAction func whereIs() {
+        //
     }
     
      // MARK: - Navigation
