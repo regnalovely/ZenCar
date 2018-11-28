@@ -10,15 +10,18 @@ import UIKit
 
 class HistoryViewController: UITableViewController {
     
-    var listeStationnement = [Stationnement]()
     let requeteSQL:RequeteSQL = RequeteSQL()
-
+    var listeStationnement = [Stationnement]()
+    var i:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        listeStationnement = requeteSQL.getStationnement()
+        NotificationCenter.default.addObserver(self, selector: #selector(load), name: NSNotification.Name(rawValue: "load"), object: nil)
+        load()
     }
     
-    func reload(){
+    @objc func load(){
+        listeStationnement = requeteSQL.getStationnements()
         self.tableView.reloadData()
     }
 
@@ -28,7 +31,21 @@ class HistoryViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return listeStationnement.count
     }
-
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        headerView.sectionID = listeStationnement[section].id
+        headerView.delegate = self
+        headerView.secIndex = section
+        headerView.button.setTitle(listeStationnement[section].nom, for: .normal)
+        return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if(listeStationnement[section].isExpandable){
@@ -38,21 +55,35 @@ class HistoryViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
-        headerView.delegate = self
-        headerView.secIndex = section
-        headerView.button.setTitle(listeStationnement[section].nomStationnement, for: .normal)
-        return headerView
-    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
-
-        // Configure the cell...
-
+        var nom:String = ""
+        
+        switch indexPath.row {
+        case 0:
+            break
+        case 1:
+            break
+        case 2:
+            nom = listeStationnement[indexPath.section].date
+            break
+        default:
+            break
+        }
+        
+        cell.textLabel?.text = nom
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if listeStationnement[indexPath.section].isExpandable {
+            return 50
+        } else {
+            return 0
+        }
+    }
+
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -104,5 +135,10 @@ extension HistoryViewController: HeaderDelegate {
     func cellHeader(index: Int) {
         listeStationnement[index].isExpandable = !listeStationnement[index].isExpandable
         tableView.reloadSections([index], with: .automatic)
+    }
+    
+    func deleteSection(id:Int){
+        let stationnement = requeteSQL.getStationnement(id: id)
+        requeteSQL.supprimerStationnement(stationnement: stationnement)
     }
 }

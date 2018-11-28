@@ -15,7 +15,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var map: MKMapView!
     let manager:CLLocationManager = CLLocationManager()
     var point:CLLocationCoordinate2D = CLLocationCoordinate2D()
-    //let requeteHTTP:RequeteHTTP = RequeteHTTP()
     let requeteSQL:RequeteSQL = RequeteSQL()
     let historyController:HistoryViewController = HistoryViewController()
     
@@ -45,20 +44,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    func placerPoint(location:CLLocationCoordinate2D){
+    func placerPoint(){
+        // Création du point sur la map
         let annotation = MKPointAnnotation()
         annotation.title = "Votre voiture est ici"
-        annotation.coordinate = location
+        annotation.coordinate = point
         map.addAnnotation(annotation)
+    }
+    
+    func placerStationnement(){
+        // Placement du point de stationnement
+        placerPoint()
+        
+        // Création de l'objet stationnement
+        let stationnement = Stationnement(latitude: point.latitude, longitude: point.longitude)
+        
+        let alert = UIAlertController(title: "Nouveau stationnement", message: nil, preferredStyle: .alert)
+        alert.addTextField { (tf) in tf.placeholder = "Nom du stationnement"}
+        let action = UIAlertAction(title: "Submit", style: .default) { (_) in
+            guard let name = alert.textFields?.first?.text
+                else { return }
+            print(name)
+            if name != "" {
+                stationnement.attribuerNom(nom: name)
+                self.requeteSQL.ajouterStationnemnet(stationnement: stationnement)
+            }
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Button Action
     
     @IBAction func isHere() {
-        placerPoint(location: point)
-        let stationnement = Stationnement(latitude: point.latitude, longitude: point.longitude)
-        requeteSQL.enregistrerStationnement(stationnement: stationnement)
-        historyController.reload()
+        placerStationnement()
     }
     
     @IBAction func whereIs() {

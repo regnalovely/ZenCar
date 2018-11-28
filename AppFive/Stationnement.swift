@@ -9,34 +9,43 @@
 import Foundation
 
 class Stationnement{
-    var idStationnement:Int // Permet d'identifié le stationnement
-    var nomStationnement:String // Permet à l'utilisateur d'identifié le stationnement
-    var isFavorite:Bool // Savoir si le stationnement est dans les favoris de l'utilisateur
+    var id:Int // Permet d'identifié le stationnement
+    var nom:String // Permet à l'utilisateur d'identifié le stationnement
     var latitude:Double // Coordonnée du stationnement
     var longitude:Double // Coordonnée du stationnement
     var date:String // Date de l'enregistrement du stationnement
+    var isFavorite:Bool = false // Savoir si le stationnement est dans les favoris de l'utilisateur
     var isExpandable:Bool = false // Collapse dans la tableView
+    var enable:Bool = false // Savoir si le stationnement est actif ou non
+    
+    init(){
+        id = 0
+        nom = "STA-000"
+        latitude = 0
+        longitude = 0
+        date = "00/00/0000 00:00"
+    }
     
     init(latitude:Double, longitude:Double){
         // Initialise un nom selon la date de placement du point de stationnement
-        let initialDatedName = Calendar.current.description
+        let date = Date()
+        let locale = Locale(identifier: "fr_MQ")
+        self.date = date.description(with: locale)
         
-        idStationnement = 0
-        nomStationnement = initialDatedName
+        id = 0
+        nom = "STA-000"
         self.latitude = latitude
         self.longitude = longitude
-        isFavorite = false
-        date = initialDatedName
     }
     
     // Permet de donner un identifiant autre que celui initial
-    func attribuerIdentifiant(identifiant:Int){
-        idStationnement = identifiant
+    func attribuerIdentifiant(id:Int){
+        self.id = id
     }
     
     // Permet de donner un nom choisi par l'utilisateur au stationnement
     func attribuerNom(nom:String){
-        nomStationnement = nom
+        self.nom = nom
     }
     
     // Permet de renseigner les coordonnées du stationnement
@@ -58,8 +67,13 @@ class Stationnement{
     func enleverFavoris(){
         isFavorite = false
     }
+    // Permet d'indiquer que ce stationnement est en cours d'utilisation
+    func activer(){
+        enable = true
+    }
     
-    func toString(){
-        print(nomStationnement)
+    // Permet d'indiquer que ce stationnement n'est pas en cours d'utilisation
+    func desactiver(){
+        enable = false
     }
 }
