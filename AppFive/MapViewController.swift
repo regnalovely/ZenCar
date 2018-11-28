@@ -14,9 +14,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
     let manager:CLLocationManager = CLLocationManager()
-    var point:CLLocationCoordinate2D = CLLocationCoordinate2D()
     let requeteSQL:RequeteSQL = RequeteSQL()
-    let historyController:HistoryViewController = HistoryViewController()
+    
+    var searching:Bool = false
+    var location:CLLocation = CLLocation()
+    var locationCoordinate:CLLocationCoordinate2D = CLLocationCoordinate2D()
+    var locationCar:CLLocation = CLLocation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +28,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
-        let locationCoordinate = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        location = locations.last!
+        locationCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: locationCoordinate, span: span)
         map.setRegion(region, animated: true)
-        point = locationCoordinate
         manager.stopUpdatingLocation()
+        
+        if(searching){
+            let distance:CLLocationDistance = location.distance(from: locationCar)
+            let direction:CLLocationDirection = location.course
+            
+            print("DISTANCE: \(distance)")
+            print("DIRECTION: \(direction)")
+        }
     }
 
     func localisation() {
@@ -48,7 +58,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         // Création du point sur la map
         let annotation = MKPointAnnotation()
         annotation.title = "Votre voiture est ici"
-        annotation.coordinate = point
+        annotation.coordinate = locationCoordinate
         map.addAnnotation(annotation)
     }
     
@@ -57,7 +67,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         placerPoint()
         
         // Création de l'objet stationnement
-        let stationnement = Stationnement(latitude: point.latitude, longitude: point.longitude)
+        let stationnement = Stationnement(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
         
         let alert = UIAlertController(title: "Nouveau stationnement", message: nil, preferredStyle: .alert)
         alert.addTextField { (tf) in tf.placeholder = "Nom du stationnement"}
@@ -78,11 +88,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Button Action
     
     @IBAction func isHere() {
-        placerStationnement()
+        if searching == false {
+            locationCar = location
+            placerStationnement()
+        }
     }
     
     @IBAction func whereIs() {
-        //
+        searching = true
     }
     
      // MARK: - Navigation
