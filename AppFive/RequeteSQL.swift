@@ -133,7 +133,8 @@ class RequeteSQL {
         
         do {
             //SELECT * FROM Stationnement
-            let locations = try self.connect.prepare(self.tableStationnement)
+            
+            let locations = try self.connect.prepare(tableStationnement)
             for location in locations {
                 let stationnement = createObjectStationnement(row: location)
                 printStationnement(stationnement: stationnement)
@@ -142,8 +143,7 @@ class RequeteSQL {
         } catch {
             print(error)
         }
-        
-        print(liste)
+
         return liste
     }
     
@@ -156,7 +156,7 @@ class RequeteSQL {
             let select = try self.connect.prepare(filter)
             for row in select {
                 stationnement = createObjectStationnement(row: row)
-                printStationnement(stationnement: stationnement)
+                //printStationnement(stationnement: stationnement)
             }
         } catch {
             print(error)
@@ -185,10 +185,14 @@ class RequeteSQL {
         
         if(favorite){
             stationnement.mettreFavoris()
+        } else {
+            stationnement.enleverFavoris()
         }
         
         if(enable){
             stationnement.activer()
+        } else {
+            stationnement.desactiver()
         }
         
         return stationnement

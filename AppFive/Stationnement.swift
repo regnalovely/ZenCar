@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Stationnement{
+class Stationnement: NSObject {
     var id:Int // Permet d'identifié le stationnement
     var nom:String // Permet à l'utilisateur d'identifié le stationnement
     var latitude:Double // Coordonnée du stationnement
@@ -16,9 +16,9 @@ class Stationnement{
     var date:String // Date de l'enregistrement du stationnement
     var isFavorite:Bool = false // Savoir si le stationnement est dans les favoris de l'utilisateur
     var isExpandable:Bool = false // Collapse dans la tableView
-    var enable:Bool = false // Savoir si le stationnement est actif ou non
+    var enable:Bool = true // Savoir si le stationnement est actif ou non
     
-    init(){
+    override init(){
         id = 0
         nom = "STA-000"
         latitude = 0

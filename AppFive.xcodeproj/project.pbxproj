@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC17747421B04ABE00455170 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC17747321B04ABE00455170 /* Location.swift */; };
 		EC1FAA3421AD73D0006ABCFD /* Stationnement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */; };
 		EC1FAA3821ADA6CE006ABCFD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3721ADA6CE006ABCFD /* HistoryViewController.swift */; };
 		EC1FAA3A21ADAB19006ABCFD /* FavorisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3921ADAB19006ABCFD /* FavorisViewController.swift */; };
@@ -14,7 +15,6 @@
 		EC1FAA3E21ADB5A3006ABCFD /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3D21ADB5A3006ABCFD /* HeaderView.swift */; };
 		EC1FAA4321ADC131006ABCFD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAA4221ADC130006ABCFD /* libsqlite3.0.tbd */; };
 		EC1FAAEA21ADC9C2006ABCFD /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAADD21ADC9AB006ABCFD /* SQLite.framework */; };
-		EC1FAAEB21ADC9CE006ABCFD /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAADD21ADC9AB006ABCFD /* SQLite.framework */; };
 		EC1FAAEC21ADC9CE006ABCFD /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAADD21ADC9AB006ABCFD /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC1FAAF821ADCBF0006ABCFD /* RequeteSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAAF721ADCBF0006ABCFD /* RequeteSQL.swift */; };
 		EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */; };
@@ -106,6 +106,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC17747321B04ABE00455170 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stationnement.swift; sourceTree = "<group>"; };
 		EC1FAA3721ADA6CE006ABCFD /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		EC1FAA3921ADAB19006ABCFD /* FavorisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavorisViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +135,6 @@
 			files = (
 				EC1FAAEA21ADC9C2006ABCFD /* SQLite.framework in Frameworks */,
 				EC1FAA4321ADC131006ABCFD /* libsqlite3.0.tbd in Frameworks */,
-				EC1FAAEB21ADC9CE006ABCFD /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +196,7 @@
 			children = (
 				EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */,
 				EC1FAA3D21ADB5A3006ABCFD /* HeaderView.swift */,
+				EC17747321B04ABE00455170 /* Location.swift */,
 				EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */,
 				EC1FAAF721ADCBF0006ABCFD /* RequeteSQL.swift */,
 				EC6F9A5421A81AE000485FD3 /* MapViewController.swift */,
@@ -384,6 +385,7 @@
 				EC1FAA3E21ADB5A3006ABCFD /* HeaderView.swift in Sources */,
 				EC1FAAF821ADCBF0006ABCFD /* RequeteSQL.swift in Sources */,
 				EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */,
+				EC17747421B04ABE00455170 /* Location.swift in Sources */,
 				EC1FAA3A21ADAB19006ABCFD /* FavorisViewController.swift in Sources */,
 				EC1FAA3C21ADAE4C006ABCFD /* DetailsViewController.swift in Sources */,
 				EC1FAA3821ADA6CE006ABCFD /* HistoryViewController.swift in Sources */,
