@@ -13,30 +13,104 @@ import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    // MARK: - Objects
     @IBOutlet weak var map: MKMapView!
     let manager:CLLocationManager = CLLocationManager()
     let requeteSQL:RequeteSQL = RequeteSQL()
-    let zoom:Double = 0.001
     
-    var searching:Bool = false
-    
-    var locationCoordinate:CLLocationCoordinate2D?
-    
-    var carLocation:CLLocation?
-    var carPlacemark:CLPlacemark?
-    
-    var currentLocation:CLLocation?
+    // MARK: - Location's Variables
+    var currentLocation:CLLocation = CLLocation()
     var currentPlacemark:CLPlacemark?
+    var carLocation:CLLocation?
     
+    // MARK: - Mes variables
+    let zoom:Double = 0.001
+    var searching:Bool = false
     var locations = [Location]()
     
+    // MARK: - Controller's Fonctions
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLocations), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(removePoint),
+                                               name: NSNotification.Name(rawValue: "reloadMap"),
+                                               object:nil)
         localisation()
+        createTestPins()
         updateLocations()
         manageMapView()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locations.last!
+        let span = MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom)
+        let region = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
+        map.setRegion(region, animated: true)
+        
+        manager.stopUpdatingLocation()
+        
+        if(searching){
+            let distance:CLLocationDistance = currentLocation.distance(from: carLocation!) / 1000
+            let direction:CLLocationDirection = currentLocation.course
+            
+            print("DISTANCE: \(String(format: "%.01f km", distance))")
+            print("DIRECTION: \(direction)")
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if !(annotation is MKUserLocation) {
+            if let annotation = annotation as? Location {
+                if annotation.enable == true {
+                    let identifier = "pin"
+                    var view:MKPinAnnotationView
+                    if let dequeuedView = map.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+                        dequeuedView.annotation = annotation
+                        view = dequeuedView
+                    } else {
+                        view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                        view.canShowCallout = true
+                        view.calloutOffset = CGPoint(x: -5, y: 5)
+                        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+                    }
+                    return view
+                }
+            }
+        }
+        return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let location = view.annotation as! Location
+        self.currentPlacemark = MKPlacemark(coordinate: location.coordinate)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        renderer.lineWidth = 5.0
+        
+        return renderer
+    }
+    
+    // MARK: - Mes fonctions
+    
+    func createTestPins(){
+        let locationTestCoordinate:[CLLocationCoordinate2D] = [
+            CLLocationCoordinate2D(latitude: 14.471044, longitude: -60.927200),
+            CLLocationCoordinate2D(latitude: 14.569967, longitude: -60.961610),
+            CLLocationCoordinate2D(latitude: 14.575902, longitude: -60.97479),
+            CLLocationCoordinate2D(latitude: 14.622981, longitude: -60.990254),
+            CLLocationCoordinate2D(latitude: 14.619652, longitude: -61.094465)
+        ]
+        var i = 0;
+        for coordinate in locationTestCoordinate {
+            i += 1
+            let name = "Test\(i)"
+            let location = Location(name: name, coordinate: coordinate, enable: false)
+            locations.append(location)
+        }
     }
     
     func manageMapView(){
@@ -44,25 +118,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.showsScale = true
         map.showsCompass = true
         map.showsTraffic = true
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations.last!
-        locationCoordinate = CLLocationCoordinate2D(latitude: currentLocation!.coordinate.latitude,
-                                                    longitude: currentLocation!.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom)
-        let region = MKCoordinateRegion(center: locationCoordinate!, span: span)
-        map.setRegion(region, animated: true)
-        
-        manager.stopUpdatingLocation()
-        
-        if(searching){
-            let distance:CLLocationDistance = currentLocation!.distance(from: carLocation!) / 1000
-            let direction:CLLocationDirection = currentLocation!.course
-
-            print("DISTANCE: \(String(format: "%.01f km", distance))")
-            print("DIRECTION: \(direction)")
-        }
     }
 
     func localisation() {
@@ -74,37 +129,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             map.showsUserLocation = true
         }
     }
-
-    func placerPoint(){
-        // Création du point sur la map
-        let annotation = MKPointAnnotation()
-        annotation.title = "Votre voiture est ici"
-        annotation.coordinate = locationCoordinate!
-        map.addAnnotation(annotation)
-    }
     
-    func updateLocations(){
-        // Vide la collection actuelle de positions de stationnements
-        locations.removeAll()
+    @objc func updateLocations(){
         // Création des points de stationnements
         let tabStationnement = requeteSQL.getStationnements()
         for stationnement in tabStationnement {
             // Récupère les coordonnées des stationnements
             let coordinate = CLLocationCoordinate2D(latitude: stationnement.latitude, longitude: stationnement.longitude)
             // Crée un objet de type Location(MKAnnotation)
-            let location = Location(locationName: stationnement.nom, coordinate: coordinate, enable: stationnement.enable)
+            let location = Location(name: stationnement.nom, coordinate: coordinate, enable: stationnement.enable)
             // On stock l'objet dans la collection de position des stationnements
             locations.append(location)
         }
         map.addAnnotations(locations)
     }
     
+    @objc func removePoint(data:[String:Stationnement]){
+        let stationnement:Stationnement = data["stationnement"]!
+        let coordinate =  CLLocationCoordinate2D(latitude: stationnement.latitude,
+                                                 longitude: stationnement.longitude)
+        let location:Location = Location(name: stationnement.nom,
+                                         coordinate: coordinate,
+                                         enable: stationnement.enable)
+        print(location.name!)
+        map.removeAnnotation(location)
+    }
+    
     func placerStationnement(){
-        // Placement du point de stationnement
-        placerPoint()
-        
         // Création de l'objet stationnement
-        let stationnement = Stationnement(latitude: locationCoordinate!.latitude, longitude: locationCoordinate!.longitude)
+        let stationnement = Stationnement(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         
         // Création d'une alerte demandant la saisie d'un nom de stationnement à l'utilisateur
         let alert = UIAlertController(title: "Nouveau stationnement", message: nil, preferredStyle: .alert)
@@ -114,53 +167,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 else { return }
 
             if name != "" {
+                // Attribue le nom saisi par l'utilisateur au stationnement
                 stationnement.attribuerNom(nom: name)
+                
+                // Appelle la requête permettant d'enregistrer le stationnement
                 self.requeteSQL.ajouterStationnemnet(stationnement: stationnement)
+                
+                // Récupère les coordonnées du stationnement
+                let coordinate = CLLocationCoordinate2D(latitude: stationnement.latitude, longitude: stationnement.longitude)
+                
+                // Crée un objet de type Location(MKAnnotation)
+                let location = Location(name: stationnement.nom, coordinate: coordinate, enable: stationnement.enable)
+                
+                // On stock l'objet dans la collection de position des stationnements
+                self.locations.append(location)
             }
         }
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? Location {
-            let identifier = "pin"
-            var view:MKPinAnnotationView
-            if let dequeuedView = map.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
-            }
-
-            return view
-        }
-
-        return nil
-    }
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let location = view.annotation as! Location
-        print("LOCATION SELECTED: \(location.coordinate)")
-        self.currentPlacemark = MKPlacemark(coordinate: location.coordinate)
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        renderer.lineWidth = 4.0
-        
-        return renderer
-    }
     
     // MARK: - Button Action
     
     @IBAction func isHere() {
         if searching == false {
+            print("Station mode activate")
             carLocation = currentLocation
             placerStationnement()
         }

@@ -12,35 +12,35 @@ import CoreLocation
 import Contacts
 
 class Location: NSObject, MKAnnotation {
-    let locationName:String?
+    let name:String?
     let enable:Bool?
     let coordinate: CLLocationCoordinate2D
     
     var title: String? {
-        return locationName
+        return name
     }
     
     var subtitle: String? {
-        if(enable ?? false){
+        if(enable == true){
             return "Active"
         } else {
             return "Inactive"
         }
     }
     
-    init(locationName:String?, coordinate:CLLocationCoordinate2D, enable:Bool) {
-        self.locationName = locationName
+    init(name:String?, coordinate:CLLocationCoordinate2D, enable:Bool) {
+        self.name = name
         self.coordinate = coordinate
         self.enable = enable
     }
     
     func mapItem() -> MKMapItem
     {
-        let addressDictionary = [String(CNPostalAddressStreetKey) : locationName]
+        let addressDictionary = [String(CNPostalAddressStreetKey) : name]
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary as [String : Any])
         let mapItem = MKMapItem(placemark: placemark)
         
-        mapItem.name = "\(String(describing: locationName))"
+        mapItem.name = "\(String(describing: name))"
         
         return mapItem
     }

@@ -16,8 +16,8 @@ class HistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "load"), object: nil)
-        load()
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "reloadTable"), object: nil)
+        reload()
     }
     
     @objc func reload(){
@@ -81,10 +81,6 @@ class HistoryViewController: UITableViewController {
         } else {
             return 0
         }
-    }
-    
-    func reloadMapView(){
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reload"), object: nil)
     }
 }
 

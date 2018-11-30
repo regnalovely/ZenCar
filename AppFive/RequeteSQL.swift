@@ -125,6 +125,7 @@ class RequeteSQL {
             print(error)
         }
         reloadTableView()
+        reloadMapView(stationnement: stationnement)
     }
     
     // Retourne une liste de stationnements enregistrés
@@ -209,6 +210,11 @@ class RequeteSQL {
     }
     
     func reloadTableView(){
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadTable"), object: nil)
+    }
+    
+    func reloadMapView(stationnement:Stationnement){
+        let data = ["stationnement":stationnement]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMap"), object: nil, userInfo: data)
     }
 }

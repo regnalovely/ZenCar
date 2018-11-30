@@ -17,6 +17,7 @@ class HeaderView: UIView {
     var secIndex:Int?
     var rowIndex:Int?
     var delegate:HeaderDelegate?
+    var myColor = "E86D8A"
     
     override init(frame: CGRect){
         super.init(frame:frame)
