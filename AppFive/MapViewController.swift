@@ -22,6 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var currentLocation:CLLocation = CLLocation()
     var currentPlacemark:CLPlacemark?
     var carLocation:CLLocation?
+    var userHeading:CLHeading?
     
     // MARK: - Mes variables
     let zoom:Double = 0.001
@@ -48,15 +49,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let region = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
         map.setRegion(region, animated: true)
         
-        manager.stopUpdatingLocation()
+        //manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        let heading = newHeading.headingAccuracy
+        print(heading)
         
-        if(searching){
-            let distance:CLLocationDistance = currentLocation.distance(from: carLocation!) / 1000
-            let direction:CLLocationDirection = currentLocation.course
-            
-            print("DISTANCE: \(String(format: "%.01f km", distance))")
-            print("DIRECTION: \(direction)")
-        }
+        let magnitude = heading.magnitude
+        print(magnitude)
+        
+        //userHeading = heading
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -126,6 +129,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             manager.delegate = self
             manager.desiredAccuracy = kCLLocationAccuracyBest
             manager.startUpdatingLocation()
+            manager.startUpdatingHeading()
             map.showsUserLocation = true
         }
     }
@@ -162,6 +166,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Création d'une alerte demandant la saisie d'un nom de stationnement à l'utilisateur
         let alert = UIAlertController(title: "Nouveau stationnement", message: nil, preferredStyle: .alert)
         alert.addTextField { (tf) in tf.placeholder = "Nom du stationnement"}
+        
         let action = UIAlertAction(title: "Valider", style: .default) { (_) in
             guard let name = alert.textFields?.first?.text
                 else { return }
@@ -183,24 +188,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.locations.append(location)
             }
         }
-        
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Button Action
-    
-    @IBAction func isHere() {
-        if searching == false {
-            print("Station mode activate")
-            carLocation = currentLocation
-            placerStationnement()
-        }
-    }
-    
-    @IBAction func whereIs() {
-        searching = true
-        print("Searching mode activate")
+    func getDirections(){
         guard let currentPlacemark = currentPlacemark else {
             return
         }
@@ -227,6 +219,33 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let routeRect = route.polyline.boundingMapRect
             self.map.setRegion(MKCoordinateRegion(routeRect), animated: true)
         }
+    }
+    
+    func search(){
+        // manager.startUpdatingLocation()
+
+        //let distance:CLLocationDistance = currentLocation.distance(from: carLocation!) / 1000
+        //let direction:CLLocationDirection = currentLocation.course
+        
+        //print("DISTANCE: \(String(format: "%.01f km", distance))")
+        //print("DIRECTION: \(direction)")
+    }
+    
+    // MARK: - Button Action
+    
+    @IBAction func isHere() {
+        if searching == false {
+            print("Station mode activate")
+            carLocation = currentLocation
+            placerStationnement()
+        }
+    }
+    
+    @IBAction func whereIs() {
+        print("Searching mode activate")
+        searching = true
+        //search()
+        getDirections()
     }
     
      // MARK: - Navigation

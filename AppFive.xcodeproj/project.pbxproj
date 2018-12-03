@@ -9,20 +9,25 @@
 /* Begin PBXBuildFile section */
 		EC17747421B04ABE00455170 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC17747321B04ABE00455170 /* Location.swift */; };
 		EC1FAA3421AD73D0006ABCFD /* Stationnement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */; };
-		EC1FAA3821ADA6CE006ABCFD /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3721ADA6CE006ABCFD /* HistoryViewController.swift */; };
-		EC1FAA3A21ADAB19006ABCFD /* FavorisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3921ADAB19006ABCFD /* FavorisViewController.swift */; };
+		EC1FAA3821ADA6CE006ABCFD /* CustomListeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3721ADA6CE006ABCFD /* CustomListeViewController.swift */; };
 		EC1FAA3C21ADAE4C006ABCFD /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3B21ADAE4C006ABCFD /* DetailsViewController.swift */; };
 		EC1FAA3E21ADB5A3006ABCFD /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAA3D21ADB5A3006ABCFD /* HeaderView.swift */; };
 		EC1FAA4321ADC131006ABCFD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAA4221ADC130006ABCFD /* libsqlite3.0.tbd */; };
 		EC1FAAEA21ADC9C2006ABCFD /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAADD21ADC9AB006ABCFD /* SQLite.framework */; };
 		EC1FAAEC21ADC9CE006ABCFD /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC1FAADD21ADC9AB006ABCFD /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC1FAAF821ADCBF0006ABCFD /* RequeteSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1FAAF721ADCBF0006ABCFD /* RequeteSQL.swift */; };
+		EC203F2721B5685900AA5DC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC203F2621B5685900AA5DC6 /* MapKit.framework */; };
+		EC203F2C21B56F8300AA5DC6 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC203F2B21B56F8300AA5DC6 /* CameraViewController.swift */; };
+		EC203F2E21B57B6800AA5DC6 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC203F2D21B57B6800AA5DC6 /* AudioViewController.swift */; };
+		EC203F3021B5861900AA5DC6 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC203F2F21B5861900AA5DC6 /* InfoView.swift */; };
+		EC203F3221B5A9A000AA5DC6 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC203F3121B5A9A000AA5DC6 /* CollectionViewController.swift */; };
 		EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */; };
 		EC6F9A5521A81AE000485FD3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A5421A81AE000485FD3 /* MapViewController.swift */; };
 		EC6F9A5821A81AE000485FD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC6F9A5621A81AE000485FD3 /* Main.storyboard */; };
 		EC6F9A5A21A81AEA00485FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC6F9A5921A81AEA00485FD3 /* Assets.xcassets */; };
 		EC6F9A5D21A81AEA00485FD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC6F9A5B21A81AEA00485FD3 /* LaunchScreen.storyboard */; };
 		EC6F9A6821A81AEA00485FD3 /* AppFiveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6F9A6721A81AEA00485FD3 /* AppFiveUITests.swift */; };
+		ECC32D7D21B5C03C00BD8E4D /* ListeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC32D7C21B5C03C00BD8E4D /* ListeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,14 +113,19 @@
 /* Begin PBXFileReference section */
 		EC17747321B04ABE00455170 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stationnement.swift; sourceTree = "<group>"; };
-		EC1FAA3721ADA6CE006ABCFD /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		EC1FAA3921ADAB19006ABCFD /* FavorisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavorisViewController.swift; sourceTree = "<group>"; };
+		EC1FAA3721ADA6CE006ABCFD /* CustomListeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListeViewController.swift; sourceTree = "<group>"; };
 		EC1FAA3B21ADAE4C006ABCFD /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		EC1FAA3D21ADB5A3006ABCFD /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		EC1FAA4021ADC0A9006ABCFD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EC1FAA4221ADC130006ABCFD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		EC1FAAD221ADC9AB006ABCFD /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../../../Downloads/SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		EC1FAAF721ADCBF0006ABCFD /* RequeteSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequeteSQL.swift; sourceTree = "<group>"; };
+		EC203F2621B5685900AA5DC6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		EC203F2821B5688400AA5DC6 /* AppFive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppFive.entitlements; sourceTree = "<group>"; };
+		EC203F2B21B56F8300AA5DC6 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		EC203F2D21B57B6800AA5DC6 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		EC203F2F21B5861900AA5DC6 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		EC203F3121B5A9A000AA5DC6 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		EC6F9A4F21A81AE000485FD3 /* AppFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6F9A5421A81AE000485FD3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +136,7 @@
 		EC6F9A6321A81AEA00485FD3 /* AppFiveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppFiveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6F9A6721A81AEA00485FD3 /* AppFiveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFiveUITests.swift; sourceTree = "<group>"; };
 		EC6F9A6921A81AEA00485FD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECC32D7C21B5C03C00BD8E4D /* ListeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1FAAEA21ADC9C2006ABCFD /* SQLite.framework in Frameworks */,
+				EC203F2721B5685900AA5DC6 /* MapKit.framework in Frameworks */,
 				EC1FAA4321ADC131006ABCFD /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +163,7 @@
 		EC1FAA3F21ADC0A8006ABCFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC203F2621B5685900AA5DC6 /* MapKit.framework */,
 				EC1FAA4221ADC130006ABCFD /* libsqlite3.0.tbd */,
 				EC1FAA4021ADC0A9006ABCFD /* libsqlite3.tbd */,
 			);
@@ -194,15 +207,20 @@
 		EC6F9A5121A81AE000485FD3 /* AppFive */ = {
 			isa = PBXGroup;
 			children = (
+				EC203F2821B5688400AA5DC6 /* AppFive.entitlements */,
 				EC6F9A5221A81AE000485FD3 /* AppDelegate.swift */,
 				EC1FAA3D21ADB5A3006ABCFD /* HeaderView.swift */,
+				EC203F2F21B5861900AA5DC6 /* InfoView.swift */,
 				EC17747321B04ABE00455170 /* Location.swift */,
 				EC1FAA3321AD73D0006ABCFD /* Stationnement.swift */,
 				EC1FAAF721ADCBF0006ABCFD /* RequeteSQL.swift */,
 				EC6F9A5421A81AE000485FD3 /* MapViewController.swift */,
-				EC1FAA3721ADA6CE006ABCFD /* HistoryViewController.swift */,
-				EC1FAA3921ADAB19006ABCFD /* FavorisViewController.swift */,
+				ECC32D7C21B5C03C00BD8E4D /* ListeViewController.swift */,
+				EC1FAA3721ADA6CE006ABCFD /* CustomListeViewController.swift */,
+				EC203F3121B5A9A000AA5DC6 /* CollectionViewController.swift */,
 				EC1FAA3B21ADAE4C006ABCFD /* DetailsViewController.swift */,
+				EC203F2D21B57B6800AA5DC6 /* AudioViewController.swift */,
+				EC203F2B21B56F8300AA5DC6 /* CameraViewController.swift */,
 				EC6F9A5621A81AE000485FD3 /* Main.storyboard */,
 				EC6F9A5921A81AEA00485FD3 /* Assets.xcassets */,
 				EC6F9A5B21A81AEA00485FD3 /* LaunchScreen.storyboard */,
@@ -272,6 +290,14 @@
 				TargetAttributes = {
 					EC6F9A4E21A81ADF00485FD3 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					EC6F9A6221A81AEA00485FD3 = {
 						CreatedOnToolsVersion = 10.0;
@@ -381,14 +407,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC203F3221B5A9A000AA5DC6 /* CollectionViewController.swift in Sources */,
 				EC6F9A5521A81AE000485FD3 /* MapViewController.swift in Sources */,
+				EC203F3021B5861900AA5DC6 /* InfoView.swift in Sources */,
+				EC203F2C21B56F8300AA5DC6 /* CameraViewController.swift in Sources */,
 				EC1FAA3E21ADB5A3006ABCFD /* HeaderView.swift in Sources */,
 				EC1FAAF821ADCBF0006ABCFD /* RequeteSQL.swift in Sources */,
+				ECC32D7D21B5C03C00BD8E4D /* ListeViewController.swift in Sources */,
 				EC6F9A5321A81AE000485FD3 /* AppDelegate.swift in Sources */,
 				EC17747421B04ABE00455170 /* Location.swift in Sources */,
-				EC1FAA3A21ADAB19006ABCFD /* FavorisViewController.swift in Sources */,
 				EC1FAA3C21ADAE4C006ABCFD /* DetailsViewController.swift in Sources */,
-				EC1FAA3821ADA6CE006ABCFD /* HistoryViewController.swift in Sources */,
+				EC203F2E21B57B6800AA5DC6 /* AudioViewController.swift in Sources */,
+				EC1FAA3821ADA6CE006ABCFD /* CustomListeViewController.swift in Sources */,
 				EC1FAA3421AD73D0006ABCFD /* Stationnement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

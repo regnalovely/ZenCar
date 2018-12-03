@@ -15,14 +15,13 @@ class HeaderView: UIView {
     
     var sectionID:Int!
     var secIndex:Int?
-    var rowIndex:Int?
     var delegate:HeaderDelegate?
     var myColor = "E86D8A"
     
     override init(frame: CGRect){
         super.init(frame:frame)
         self.addSubview(button)
-        self.addSubview(delete)
+        self.addSubview(image)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,16 +39,10 @@ class HeaderView: UIView {
         return btn
     }()
     
-    lazy var delete:UIButton = {
-        let btn = UIButton(frame: CGRect(x: self.frame.origin.x+50, y: self.frame.origin.y+5, width: self.frame.width/4, height: self.frame.height-10))
-        btn.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
-        btn.setTitle("Supprimer", for: .normal)
-        btn.titleLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        btn.layer.cornerRadius = 5
-        btn.clipsToBounds = true
-        btn.addTarget(self, action: #selector(onClickBtnDelete), for: .touchUpInside)
-        
-        return btn
+    lazy var image:UIImageView = {
+        let img = UIImageView(frame: CGRect(x: self.frame.origin.x+50, y: self.frame.origin.y+5, width: self.frame.width/4, height: self.frame.height-10))
+
+        return img
     }()
     
     @objc func onClickHeaderView() {
@@ -65,5 +58,4 @@ class HeaderView: UIView {
             delegate?.deleteSection(id: id)
         }
     }
-
 }

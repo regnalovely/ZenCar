@@ -8,11 +8,11 @@
 
 import UIKit
 
-class HistoryViewController: UITableViewController {
+class CustomListeViewController: UITableViewController {
     
     let requeteSQL:RequeteSQL = RequeteSQL()
     var listeStationnement = [Stationnement]()
-    var i:Int = 0
+    var taille:CGFloat = 50
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class HistoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: taille))
         headerView.sectionID = listeStationnement[section].id
         headerView.delegate = self
         headerView.secIndex = section
@@ -42,9 +42,8 @@ class HistoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return taille
     }
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -57,34 +56,45 @@ class HistoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
-        var nom:String = ""
+        var text:String = ""
         
         switch indexPath.row {
         case 0:
             break
         case 1:
+            text = String(listeStationnement[indexPath.section].latitude)
             break
         case 2:
-            nom = listeStationnement[indexPath.section].date
+            text = String(listeStationnement[indexPath.section].longitude)
+            break
+        case 3:
+            text = listeStationnement[indexPath.section].date
             break
         default:
             break
         }
         
-        cell.textLabel?.text = nom
+        cell.textLabel?.text = text
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if listeStationnement[indexPath.section].isExpandable {
-            return 50
+            return taille
         } else {
             return 0
         }
     }
+    
+    func getInfoView(section:Int) -> UITableViewCell {
+        let infoView = InfoView(style: .default, reuseIdentifier: "infoCell-+")
+        infoView.delegate = self
+        infoView.sectionID = section
+        return infoView
+    }
 }
 
-extension HistoryViewController: HeaderDelegate {
+extension CustomListeViewController: HeaderDelegate, InfoDelegate {
     func cellHeader(index: Int) {
         listeStationnement[index].isExpandable = !listeStationnement[index].isExpandable
         tableView.reloadSections([index], with: .automatic)
