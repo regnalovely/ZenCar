@@ -54,10 +54,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let heading = newHeading.headingAccuracy
-        print(heading)
+        print("HEADING :\(heading)")
         
         let magnitude = heading.magnitude
-        print(magnitude)
+        print("MAGNITUDE : \(magnitude)")
         
         //userHeading = heading
     }
