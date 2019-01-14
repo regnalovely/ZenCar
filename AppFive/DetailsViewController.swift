@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
+    var name:String!
     
     var stationnement:Stationnement!
 
@@ -19,14 +20,18 @@ class DetailsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showAudio" {
+            let controller = segue.destination as? AudioViewController
+            controller?.name = name
+        }
+        if segue.identifier == "showPhoto" {
+            let controller = segue.destination as? CameraViewController
+            controller?.albumName = name
+        }
     }
-    */
 
 }
