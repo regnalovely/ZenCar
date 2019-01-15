@@ -14,6 +14,7 @@ class ListeViewController: UITableViewController {
     let size:CGFloat = 50
     let requeteSQL:RequeteSQL = RequeteSQL()
     var listeStationnement = [Stationnement]()
+    var currentItem:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +106,18 @@ class ListeViewController: UITableViewController {
         action.image = #imageLiteral(resourceName: "trash")
         
         return action
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "showDetail" {
+            let cell = sender as? UITableViewCell
+            currentItem = (cell?.textLabel?.text)!
+            let controller = segue.destination as? DetailsViewController
+            controller?.name = currentItem
+            //print("--- prepareSegue \(currentName)")
+        }
     }
 }
 
