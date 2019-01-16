@@ -8,7 +8,21 @@
 
 import UIKit
 
+struct Headline {
+    var nomStationnement:String
+    var dateStationnement:String
+    var isFavoris:Bool
+}
+
+class HeadlineTableViewCell: UITableViewCell {
+    @IBOutlet weak var nomStationnement: UILabel!
+    @IBOutlet weak var dateStationnement: UILabel!
+    @IBOutlet weak var favorisIcone: UIImageView!
+}
+
 class ListeViewController: UITableViewController {
+    
+
     
     let reuseIdentifier = "historyCell"
     let size:CGFloat = 50
@@ -28,35 +42,26 @@ class ListeViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.width, height: size))
-        let button:UIButton = {
-            let btn = UIButton(frame: view.frame)
-            btn.setTitle(listeStationnement[section].nom, for: .normal)
-            
-            return btn
-        }()
-        
-        view.addSubview(button)
-        return view
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return size
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return listeStationnement.count
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return listeStationnement.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = listeStationnement[indexPath.section].nom
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! HeadlineTableViewCell
+        let stationnement = listeStationnement[indexPath.row]
+        cell.nomStationnement.text = stationnement.nom
+        cell.dateStationnement.text = stationnement.date
+        if stationnement.isFavorite {
+            cell.favorisIcone.isHidden = false
+        } else {
+            cell.favorisIcone.isHidden = true
+        }
         return cell
     }
     
@@ -118,17 +123,5 @@ class ListeViewController: UITableViewController {
             controller?.name = currentItem
             //print("--- prepareSegue \(currentName)")
         }
-    }
-}
-
-extension ListeViewController: HeaderViewDelegate {
-    func cellHeader(index: Int) {
-        listeStationnement[index].isExpandable = !listeStationnement[index].isExpandable
-        tableView.reloadSections([index], with: .automatic)
-    }
-    
-    func deleteSection(id:Int){
-        let stationnement = requeteSQL.getStationnement(id: id)
-        requeteSQL.supprimerStationnement(stationnement: stationnement)
     }
 }
