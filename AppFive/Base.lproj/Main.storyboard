@@ -25,6 +25,9 @@
                                     <color key="titleColor" red="0.90980392160000001" green="0.42745098040000001" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="whereIs" destination="BYZ-38-t0r" eventType="touchUpInside" id="WsT-3w-YS9"/>
+                                </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Unb-q1-0Fc">
                                 <rect key="frame" x="0.0" y="130.5" width="375" height="536.5"/>

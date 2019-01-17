@@ -49,17 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let region = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
         map.setRegion(region, animated: true)
         
-        //manager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        let heading = newHeading.headingAccuracy
-        print("HEADING :\(heading)")
-        
-        let magnitude = heading.magnitude
-        print("MAGNITUDE : \(magnitude)")
-        
-        //userHeading = heading
+        manager.stopUpdatingLocation()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -101,18 +91,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func createTestPins(){
         let locationTestCoordinate:[CLLocationCoordinate2D] = [
-            CLLocationCoordinate2D(latitude: 14.471044, longitude: -60.927200),
-            CLLocationCoordinate2D(latitude: 14.569967, longitude: -60.961610),
-            CLLocationCoordinate2D(latitude: 14.575902, longitude: -60.97479),
-            CLLocationCoordinate2D(latitude: 14.622981, longitude: -60.990254),
+            // Site touristique
+            CLLocationCoordinate2D(latitude: 14.526145, longitude: -61.091174),
+            CLLocationCoordinate2D(latitude: 14.553273, longitude: -61.055130),
+            CLLocationCoordinate2D(latitude: 14.604761, longitude: -61.067935),
+            CLLocationCoordinate2D(latitude: 14.464217, longitude: -61.046414),
+            CLLocationCoordinate2D(latitude: 14.757542, longitude: -61.165411),
+            CLLocationCoordinate2D(latitude: 14.479783, longitude: -60.963657),
+            CLLocationCoordinate2D(latitude: 14.602395, longitude: -60.907160),
+            CLLocationCoordinate2D(latitude: 14.672105, longitude: 61.091368),
+            CLLocationCoordinate2D(latitude: 14.756304, longitude: -60.910335),
+            CLLocationCoordinate2D(latitude: 14.809378, longitude: -61.166416),
+            CLLocationCoordinate2D(latitude: 14.695580, longitude: -61.119424),
+            CLLocationCoordinate2D(latitude: 14.556688, longitude: -61.052233),
+            CLLocationCoordinate2D(latitude: 14.724908, longitude: -61.105590),
+            // Custom
             CLLocationCoordinate2D(latitude: 14.619652, longitude: -61.094465)
         ]
+        let names = ["Anse Dufour","Anse Mitan","Bibliothèque Schoelcher","Le mémorial de l'anse Caffard","La distillerie Depaz","La distillerie Les Trois Rivièeres","L'habitation Clément","Le jardin de Balata","La presqu'île Caravelle","La montagne Pelée","Les pitons du Carbet","La pointe du bout","La cascade du saut du gendarme", "Cafétaria"]
+        let infos = ["Les Anses d'Arlet","Les Trois îlets","Fort de France","Le Diamant","Saint Pierre","Sainte Luce","Le François","Fort de France","Trinité","Morne Rouge","Carbet","Les T
+            rois îlets","Fonds Saint Denis", "Université des Antilles"]
         var i = 0;
         for coordinate in locationTestCoordinate {
-            i += 1
-            let name = "Test\(i)"
-            let location = Location(name: name, coordinate: coordinate, enable: false)
+            let name = names[i]
+            let info = infos[i]
+//            print("NAME: \(name) - INFO: \(info)")
+            let location = Location(name: name, info: info, coordinate: coordinate, enable: false)
             locations.append(location)
+            i += 1
         }
     }
     
@@ -141,7 +147,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             // Récupère les coordonnées des stationnements
             let coordinate = CLLocationCoordinate2D(latitude: stationnement.latitude, longitude: stationnement.longitude)
             // Crée un objet de type Location(MKAnnotation)
-            let location = Location(name: stationnement.nom, coordinate: coordinate, enable: stationnement.enable)
+            let location = Location(name: stationnement.nom, info: "", coordinate: coordinate, enable: stationnement.enable)
             // On stock l'objet dans la collection de position des stationnements
             locations.append(location)
         }
@@ -152,7 +158,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let stationnement:Stationnement = data["stationnement"]!
         let coordinate =  CLLocationCoordinate2D(latitude: stationnement.latitude,
                                                  longitude: stationnement.longitude)
-        let location:Location = Location(name: stationnement.nom,
+        let location:Location = Location(name: stationnement.nom, info: "",
                                          coordinate: coordinate,
                                          enable: stationnement.enable)
         print(location.name!)
@@ -182,7 +188,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 let coordinate = CLLocationCoordinate2D(latitude: stationnement.latitude, longitude: stationnement.longitude)
                 
                 // Crée un objet de type Location(MKAnnotation)
-                let location = Location(name: stationnement.nom, coordinate: coordinate, enable: stationnement.enable)
+                let location = Location(name: stationnement.nom, info: nil, coordinate: coordinate, enable: stationnement.enable)
                 
                 // On stock l'objet dans la collection de position des stationnements
                 self.locations.append(location)
@@ -233,7 +239,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // MARK: - Button Action
     
-    @IBAction func isHere() {
+    func isHere() {
         if searching == false {
             print("Station mode activate")
             carLocation = currentLocation

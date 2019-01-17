@@ -49,8 +49,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         let date = Date()
         let formatter = DateFormatter()
-        //formatter.locale = "fr_FR"
-        formatter.dateFormat = "dd-MM-yyyy-HH-mm-ss"
+        formatter.locale = Locale(identifier: "FR_fr")
+        formatter.dateFormat = "IMG-dd-MM-yyyy-HH-mm-ss"
         let imageName = formatter.string(from: date)
         imageView.image = image
         saveImageDocumentDirectory(image: image, imageName: imageName)

@@ -13,6 +13,7 @@ import Contacts
 
 class Location: NSObject, MKAnnotation {
     let name:String?
+    let info:String?
     let enable:Bool?
     let coordinate: CLLocationCoordinate2D
     
@@ -21,15 +22,12 @@ class Location: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        if(enable == true){
-            return "Active"
-        } else {
-            return "Inactive"
-        }
+        return info
     }
     
-    init(name:String?, coordinate:CLLocationCoordinate2D, enable:Bool) {
+    init(name:String?, info:String?, coordinate:CLLocationCoordinate2D, enable:Bool) {
         self.name = name
+        self.info = info
         self.coordinate = coordinate
         self.enable = enable
     }

@@ -33,7 +33,7 @@ class RequeteSQL {
     func connexion(){
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:true)
-            let fileUrl = documentDirectory.appendingPathComponent("database").appendingPathExtension("sqlite3")
+            let fileUrl = documentDirectory.appendingPathComponent("db_zencar").appendingPathExtension("sqlite3")
             let database = try Connection(fileUrl.path)
             connect = database
             createTable()
@@ -97,7 +97,7 @@ class RequeteSQL {
         
         // UPDATE Stationnement SET nom = $nom, favorite = $favorite, enable = $enable
             // WHERE id = $id
-        let filter = self.tableStationnement.filter(self.id == id)
+        let filter = self.tableStationnement.filter(self.id == id!)
         let update = filter.update(self.nom <- stationnement.nom,
                       self.favorite <- stationnement.isFavorite,
                       self.enable <- stationnement.enable)
@@ -118,7 +118,7 @@ class RequeteSQL {
         do {
             // DELETE FROM filter_table ( SELECT * FROM Stationnement WHERE id = $id )
                 // DELETE FROM Stationnement WHERE id = $i
-            let filter = self.tableStationnement.filter(self.id == id)
+            let filter = self.tableStationnement.filter(self.id == id!)
             let delete = filter.delete()
             try connect.run(delete)
         } catch {
@@ -201,9 +201,9 @@ class RequeteSQL {
     
     func printStationnement(stationnement:Stationnement){
         print(" - - - - - - - - - -")
-        print("ID: \(stationnement.id)")
-        print("NOM: \(stationnement.nom)")
-        print("DATE: \(stationnement.date)")
+        print("ID: \(String(describing: stationnement.id))")
+        print("NOM: \(String(describing: stationnement.nom))")
+        print("DATE: \(String(describing: stationnement.date))")
         print("FAVORIS: \(stationnement.isFavorite)")
         print("ACTIF: \(stationnement.enable)")
         print(" - - - - - - - - - -")
