@@ -9,14 +9,24 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
+    let mapController = MapViewController()
     var name:String!
-    
     var stationnement:Stationnement!
-
+    @IBOutlet weak var btnActionStationnement:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        let searching = mapController.searching
+        if(searching){
+            btnActionStationnement.
+        }
+    }
+    
+    @IBAction func actionStationnement(){
+        
+        if(searching)
+        mapController.isHere()
     }
     
 

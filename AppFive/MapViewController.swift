@@ -109,8 +109,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             CLLocationCoordinate2D(latitude: 14.619652, longitude: -61.094465)
         ]
         let names = ["Anse Dufour","Anse Mitan","Bibliothèque Schoelcher","Le mémorial de l'anse Caffard","La distillerie Depaz","La distillerie Les Trois Rivièeres","L'habitation Clément","Le jardin de Balata","La presqu'île Caravelle","La montagne Pelée","Les pitons du Carbet","La pointe du bout","La cascade du saut du gendarme", "Cafétaria"]
-        let infos = ["Les Anses d'Arlet","Les Trois îlets","Fort de France","Le Diamant","Saint Pierre","Sainte Luce","Le François","Fort de France","Trinité","Morne Rouge","Carbet","Les T
-            rois îlets","Fonds Saint Denis", "Université des Antilles"]
+        let infos = ["Les Anses d'Arlet","Les Trois îlets","Fort de France","Le Diamant","Saint Pierre","Sainte Luce","Le François","Fort de France","Trinité","Morne Rouge","Carbet","Les Trois îlets","Fonds Saint Denis", "Université des Antilles"]
         var i = 0;
         for coordinate in locationTestCoordinate {
             let name = names[i]
